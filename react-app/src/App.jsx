@@ -28,7 +28,14 @@ function App() {
     <ul>
       {todoLIst.map((listItem, index) => {
         return (
-          <li className="task" key={index}>
+          <li
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: 50,
+            }}
+            key={index}
+          >
             <span className="title">{listItem.title.toUpperCase()}</span>
             <span
               className={`progress ${generateProgressClassName(
