@@ -1,21 +1,21 @@
-.task {
-  display: flex;
-  justify-content: space-between;
-}
-.title {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.progress {
-  color: gray;
-}
-.progress.completed {
-  color: green;
-}
-.progress.onwork {
-  color: blue;
-}
-.progress.not-yet {
+.heading {
   color: red;
+}
+.form-control {
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  width: 100%;
+  border-color: black;
+}
+.form small {
+  font-size: 12;
+  color: red;
+}
+.input.error {
+  border-color: red;
+}
+.form button {
+  width: 100%;
 }
