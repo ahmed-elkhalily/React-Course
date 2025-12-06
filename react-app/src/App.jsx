@@ -21,9 +21,7 @@ function App() {
   ];
 
   function generateProgressClassName(progress) {
-    if (progress === 100) return "completed";
-    else if (progress > 0) return "onwork";
-    else return "not-yet";
+    return progress === 100 ? "completed" : progress > 0 ? "onwork" : "not-yet";
   }
 
   return (
