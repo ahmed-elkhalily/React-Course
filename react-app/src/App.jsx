@@ -1,3 +1,5 @@
+import "./App.css";
+
 function App() {
   const todoLIst = [
     {
@@ -18,9 +20,13 @@ function App() {
     <ul>
       {todoLIst.map((listItem, index) => {
         return (
-          <li key={index}>
-            <span>{listItem.title}</span>
-            <span>{`${listItem.progress} %`}</span>
+          <li className="task" key={index}>
+            <span className="title">{listItem.title.toUpperCase()}</span>
+            <span
+              className={`progress ${
+                listItem.progress === 100 ? "completed" : "not-yet"
+              }`}
+            >{`${listItem.progress} %`}</span>
           </li>
         );
       })}

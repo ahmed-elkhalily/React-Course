@@ -1,0 +1,18 @@
+.task {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.progress {
+  color: gray;
+}
+.progress.completed {
+  color: green;
+}
+.progress.not-yet {
+  color: red;
+}
