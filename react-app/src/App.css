@@ -13,6 +13,9 @@
 .progress.completed {
   color: green;
 }
+.progress.onwork {
+  color: blue;
+}
 .progress.not-yet {
   color: red;
 }
