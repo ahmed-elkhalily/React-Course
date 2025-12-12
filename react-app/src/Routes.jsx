@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router";
 // pages
-import HomePage from "./HomePage";
-import AboutUsPage from "./AboutUsPage";
-import UsersPage from "./UsersPage";
+import HomePage from "./pages/HomePage";
+import AboutUsPage from "./pages/AboutUsPage";
+import UsersPage from "./pages/UsersPage";
 
 export default function AppRoutes() {
   return (
