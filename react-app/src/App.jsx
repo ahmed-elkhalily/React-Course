@@ -1,9 +1,5 @@
-function App() {
-  return (
-    <div>
-      <a href="/counter"></a>
-    </div>
-  );
-}
+import Routes from "./Routes";
 
-export default App;
+export default function App() {
+  return <Routes />;
+}
