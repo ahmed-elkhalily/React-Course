@@ -1,17 +1,12 @@
-import { Routes, Route } from "react-router";
-// pages
-import HomePage from "./pages/HomePage";
-import AboutUsPage from "./pages/AboutUsPage";
-import UsersPage from "./pages/UsersPage";
-import BlogPage from "./pages/blog/BlogPage";
+import { Route, Routes } from "react-router";
+import { Home } from "./pages/home";
+import { Article } from "./pages/article";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/about-us" element={<AboutUsPage />} />
-      <Route path="/users" element={<UsersPage />} />
-      <Route path="/blog/:blogId" element={<BlogPage />} />
+      <Route path="/" element={<Home />} />
+      <Route path="article/:id" element={<Article />} />
     </Routes>
   );
 }

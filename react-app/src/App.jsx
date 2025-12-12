@@ -1,11 +1,10 @@
-import Routes from "./Routes";
+import AppRoutes from "./Routes";
 
 export default function App() {
-  // return <Routes />;
   return (
     <div>
       <div>Navbar</div>
-      <Routes />
+      <AppRoutes />
       <div>Footer</div>
     </div>
   );
