@@ -9,7 +9,6 @@ export function Article() {
     <div>
       <h1>{article.title}</h1>
       <p>{article.body}</p>
-      <a href={article.readMoreLink}>Read More</a>
       <hr />
       <NavLink to="/">Back to Home</NavLink>
     </div>

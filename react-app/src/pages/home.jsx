@@ -8,7 +8,10 @@ export function Home() {
       <ul>
         {Object.keys(ARTICLES).map((key) => (
           <li key={key}>
-            <NavLink to={`article/${key}`}>{ARTICLES[key].title}</NavLink>
+            <img src={ARTICLES[key].image} alt={ARTICLES[key].title} />
+            <h4>{ARTICLES[key].title}</h4>
+            <p>{ARTICLES[key].body.slice(0, 75) + "..."}</p>
+            <NavLink to={`article/${key}`}>Read More</NavLink>
           </li>
         ))}
       </ul>
