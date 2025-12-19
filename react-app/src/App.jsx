@@ -1,39 +1,33 @@
-import { useRef, useState } from "react";
-import "./App.css";
+import { useState, useRef } from "react";
 
-function App() {
-  const [count, setCount] = useState(0);
-  const countRef = useRef(0);
+export default function Stopwatch() {
+  const [startTime, setStartTime] = useState(null);
+  const [now, setNow] = useState(null);
+  const intervalRef = useRef(null);
 
-  const status =
-    countRef.current < count
-      ? "value inc. ↑↑↑↑"
-      : countRef.current === count
-      ? "value eq. ==="
-      : "value dec.↓↓↓↓↓";
+  function handleStart() {
+    setStartTime(Date.now());
+    setNow(Date.now());
+
+    intervalRef.current = setInterval(() => {
+      setNow(Date.now());
+    }, 10);
+  }
+
+  function handleStop() {
+    clearInterval(intervalRef.current);
+  }
+
+  let secondsPassed = 0;
+  if (startTime != null && now != null) {
+    secondsPassed = (now - startTime) / 1000;
+  }
 
   return (
-    <div>
-      <div>count: {count}</div>
-      <div>{status}</div>
-      <button
-        onClick={() => {
-          countRef.current = count;
-          setCount(count + 1);
-        }}
-      >
-        Increment
-      </button>
-      <button
-        onClick={() => {
-          countRef.current = count;
-          setCount(count - 1);
-        }}
-      >
-        Decrement
-      </button>
-    </div>
+    <>
+      <h1>Time passed: {secondsPassed.toFixed(3)}</h1>
+      <button onClick={handleStart}>Start</button>
+      <button onClick={handleStop}>Stop</button>
+    </>
   );
 }
-
-export default App;
