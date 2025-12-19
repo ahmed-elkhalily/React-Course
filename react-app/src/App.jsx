@@ -1,33 +1,58 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
+function fetchUserFromEndpoint() {
+  const user = {
+    name: "ahmed",
+    age: "25",
+  };
+  return user;
+}
+
 function App() {
-  const inputRef = useRef(null);
+  const [value, setValue] = useState({
+    name: "",
+    age: "",
+  });
+  const initValRef = useRef(null);
 
-  // useEffect(() => {
-  //   inputRef.current.focus();
-  // }, []);
+  useEffect(() => {
+    const user = fetchUserFromEndpoint();
+    initValRef.current = user;
+    setValue(user);
+  }, []);
 
-  function consoleTheInputDom() {
-    console.log(inputRef);
-  }
-
-  function controlDocEle() {
-    inputRef.current.append(" This text was appended.", " Another string.");
+  function disableButton() {
+    // name is not change (and) age is not change -> disable
+    if (
+      value.name === initValRef.current?.name &&
+      value.age === initValRef.current?.age
+    )
+      return true;
+    else return false;
   }
 
   return (
     <form>
-      <div ref={inputRef} id="div">
-        hello
-      </div>
-      <input />
-      <button type="button" onClick={controlDocEle}>
-        focus on the input
-      </button>
-      <button type="button" onClick={consoleTheInputDom}>
-        console
-      </button>
+      <input
+        value={value.name}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            name: e.target.value,
+          }))
+        }
+      />
+      <input
+        value={value.age}
+        onChange={(e) =>
+          setValue((prev) => ({
+            ...prev,
+            age: e.target.value,
+          }))
+        }
+      />
+      <button disabled={disableButton()}>Submit</button>
     </form>
   );
 }
