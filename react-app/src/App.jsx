@@ -1,23 +1,20 @@
 import { useState } from "react";
+
 import { Navbar } from "./components/Navbar/NavBar";
 import { ModeController } from "./components/mode-controller/ModeController";
+import { MODES } from "./constants/modes";
+
 import "./assets/app.css";
 
 export default function App() {
-  const [mode, setMode] = useState("light");
-  // test to this component rendering
-  console.log("render the parent ");
-
-  function convertMode() {
-    if (mode === "light") setMode("dark");
-    else setMode("light");
-  }
+  const [mode, setMode] = useState(MODES.light);
 
   return (
     <div>
       <Navbar mode={mode} />
       <hr />
-      <ModeController mode={mode} convertMode={convertMode} />
+
+      <ModeController mode={mode} setMode={setMode} />
     </div>
   );
 }
