@@ -1,59 +1,38 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 
-function fetchUserFromEndpoint() {
-  const user = {
-    name: "ahmed",
-    age: "25",
-  };
-  return user;
-}
-
 function App() {
-  const [value, setValue] = useState({
-    name: "",
-    age: "",
-  });
-  const initValRef = useRef(null);
+  const [count, setCount] = useState(0);
+  const countRef = useRef(0);
 
-  useEffect(() => {
-    const user = fetchUserFromEndpoint();
-    initValRef.current = user;
-    setValue(user);
-  }, []);
-
-  function disableButton() {
-    // name is not change (and) age is not change -> disable
-    if (
-      value.name === initValRef.current?.name &&
-      value.age === initValRef.current?.age
-    )
-      return true;
-    else return false;
-  }
+  const status =
+    countRef.current < count
+      ? "value inc. ↑↑↑↑"
+      : countRef.current === count
+      ? "value eq. ==="
+      : "value dec.↓↓↓↓↓";
 
   return (
-    <form>
-      <input
-        value={value.name}
-        onChange={(e) =>
-          setValue((prev) => ({
-            ...prev,
-            name: e.target.value,
-          }))
-        }
-      />
-      <input
-        value={value.age}
-        onChange={(e) =>
-          setValue((prev) => ({
-            ...prev,
-            age: e.target.value,
-          }))
-        }
-      />
-      <button disabled={disableButton()}>Submit</button>
-    </form>
+    <div>
+      <div>count: {count}</div>
+      <div>{status}</div>
+      <button
+        onClick={() => {
+          countRef.current = count;
+          setCount(count + 1);
+        }}
+      >
+        Increment
+      </button>
+      <button
+        onClick={() => {
+          countRef.current = count;
+          setCount(count - 1);
+        }}
+      >
+        Decrement
+      </button>
+    </div>
   );
 }
 
