@@ -1,17 +1,34 @@
-import { useState } from "react";
-import { Timer } from "./Timer";
+import { useRef } from "react";
 import "./App.css";
 
 function App() {
-  const [showTimer, setShowTimer] = useState(false);
+  const inputRef = useRef(null);
+
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // }, []);
+
+  function consoleTheInputDom() {
+    console.log(inputRef);
+  }
+
+  function controlDocEle() {
+    inputRef.current.append(" This text was appended.", " Another string.");
+  }
 
   return (
-    <div>
-      {showTimer && <Timer />}
-      <button onClick={() => setShowTimer((prev) => !prev)}>
-        {showTimer ? "Hide Timer" : "Show Timer"} Component
+    <form>
+      <div ref={inputRef} id="div">
+        hello
+      </div>
+      <input />
+      <button type="button" onClick={controlDocEle}>
+        focus on the input
       </button>
-    </div>
+      <button type="button" onClick={consoleTheInputDom}>
+        console
+      </button>
+    </form>
   );
 }
 
