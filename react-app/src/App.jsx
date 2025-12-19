@@ -12,6 +12,7 @@ export default function App() {
     if (mode === "light") setMode("dark");
     else setMode("light");
   }
+
   return (
     <div>
       <Navbar mode={mode} />
