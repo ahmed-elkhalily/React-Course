@@ -10,9 +10,10 @@ import type { Control } from 'react-hook-form';
 import type z from 'zod';
 import type { signupSchema } from '../schemas/signup.schema';
 import type { Name } from '../types';
+import type { signinSchema } from '../schemas/signin.schema';
 
 type FieldInputProps = {
-  control: Control<z.infer<typeof signupSchema>>;
+  control: Control<z.infer<typeof signupSchema> | z.infer<typeof signinSchema>>;
   label: string;
   name: Name;
   placeholder: string;

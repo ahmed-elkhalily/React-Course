@@ -10,7 +10,6 @@ function RouteComponent() {
   return (
     <Container className="flex gap-x-11">
       <WelcomeSec />
-
       <div className="flex flex-1 items-center">
         <Outlet />
       </div>

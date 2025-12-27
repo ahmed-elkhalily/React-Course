@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { signupFields, signupSchema } from '../schemas/signup.schema';
 import { AuthField } from '../components/auth-field';
+import { motion } from 'framer-motion';
 
 export const SignupPage = () => {
   const form = useForm({
@@ -16,7 +17,13 @@ export const SignupPage = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-4">
+      <motion.form
+        initial={{ opacity: 0, x: 0 }}
+        animate={{ opacity: 1, x: 20 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex-1 space-y-4"
+      >
         {signupFields.map((item) => {
           return (
             <AuthField
@@ -33,7 +40,7 @@ export const SignupPage = () => {
         <Button type="submit" className="w-full py-6">
           Sign Up
         </Button>
-      </form>
+      </motion.form>
     </Form>
   );
 };

@@ -1,31 +1,33 @@
-import { Container } from '@/components/custom/container';
-import { WelcomeSec } from '../components/welcom-sec';
+import { Form } from '@/components/ui/form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { signinFields, signinSchema } from '../schemas/signin.schema';
+import { AuthField } from '../components/auth-field';
+import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 export const SigninPage = () => {
+  const form = useForm({
+    resolver: zodResolver(signinSchema),
+  });
+  function onSubmit(data: z.infer<typeof signinSchema>) {
+    console.log(data);
+  }
   return (
-    <Container>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident saepe
-      nostrum facere asperiores voluptatum, odit doloribus natus illum, labore
-      quidem excepturi molestias iure ipsam aliquam, harum facilis reiciendis
-      dignissimos vel consectetur explicabo obcaecati! Illo nobis, dolorem
-      doloribus assumenda officia amet dolor a iusto. Libero dicta architecto
-      inventore dolores aut similique voluptatibus. Perspiciatis laboriosam
-      sequi non odio, explicabo ipsam rem recusandae, nesciunt adipisci dolores
-      cupiditate necessitatibus beatae aut, culpa quis temporibus enim quasi!
-      Molestias deleniti, ea sunt dolor commodi labore dignissimos quia. Alias
-      sit ullam quasi impedit ducimus atque nemo nisi, consequuntur itaque ex,
-      perspiciatis non reiciendis! Vitae similique, dicta iure laudantium eaque
-      iusto aperiam architecto repellendus quos. Odit numquam voluptatibus
-      delectus commodi minus excepturi tempore velit. Consequuntur explicabo
-      tempore quasi ratione quod ullam. Vitae hic modi cumque voluptates magnam.
-      Velit nemo maiores officia dignissimos corrupti ratione ipsum? Placeat,
-      voluptas vel illo, magni tempora unde reiciendis id aut magnam assumenda
-      exercitationem nisi labore debitis fuga quis aperiam, iste commodi
-      sapiente? Praesentium sapiente vel animi nulla velit quisquam inventore ab
-      maiores voluptatibus? Earum temporibus architecto laudantium, minima
-      debitis esse animi voluptatum dolores inventore nesciunt porro veniam, sit
-      ullam provident labore placeat, nostrum facere nobis optio illum. Odio eum
-      cupiditate modi magnam rem!
-    </Container>
+    <Form {...form}>
+      <motion.form
+        initial={{ opacity: 0, x: 0 }}
+        animate={{ opacity: 1, x: -20 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex-1 space-y-4"
+      >
+        {signinFields.map((field) => {
+          return <AuthField {...field} control={form.control} />;
+        })}
+        <Button className="w-full">Sign In</Button>
+      </motion.form>
+    </Form>
   );
 };
