@@ -28,7 +28,7 @@ export const NotFound = () => {
         </p>
 
         <div className="flex justify-center gap-4">
-          <Button asChild className="gap-2">
+          <Button asChild className="gap-2" size="lg">
             <Link to="/">
               <Home className="h-4 w-4" />
               Back to Home
