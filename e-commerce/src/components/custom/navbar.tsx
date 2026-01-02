@@ -2,17 +2,30 @@ import { ShoppingBasket, User } from 'lucide-react';
 import { Container } from './container';
 import { Link, useLocation } from '@tanstack/react-router';
 import { useNavigate } from '@tanstack/react-router';
+import { auth } from '@/configs/firebase';
+import { signOut } from 'firebase/auth';
+import { Button } from '../ui/button';
+import { useState } from 'react';
 
 export const Navbar = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const user = localStorage.getItem('user');
 
   function logoutUser() {
-    localStorage.removeItem('user');
-    navigate({
-      to: '/signin',
-    });
+    setIsLoading(true);
+    signOut(auth)
+      .then(() => {
+        setIsLoading(false);
+        localStorage.removeItem('user');
+        navigate({
+          to: '/signin',
+        });
+      })
+      .catch((error) => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -28,13 +41,10 @@ export const Navbar = () => {
           </li>
           {user ? (
             <li>
-              <button
-                onClick={logoutUser}
-                className="flex text-lg font-semibold text-zinc-500"
-              >
+              <Button onClick={logoutUser} disabled={isLoading}>
                 <User className="me-1" />
-                Logout
-              </button>
+                {isLoading ? 'Log Out ...' : 'Log Out'}
+              </Button>
             </li>
           ) : (
             <>

@@ -1,8 +1,16 @@
 import { Container } from '@/components/custom/container';
 import { WelcomeSec } from '@/modules/auth/components/welcom-sec';
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_auth')({
+  beforeLoad: () => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      throw redirect({
+        to: '/',
+      });
+    }
+  },
   component: RouteComponent,
 });
 

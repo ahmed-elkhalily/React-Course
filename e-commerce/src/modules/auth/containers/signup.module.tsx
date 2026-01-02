@@ -9,22 +9,35 @@ import { motion } from 'framer-motion';
 import { auth } from '@/configs/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
+import { Alert, AlertTitle } from '@/components/ui/alert';
+import { AlertCircleIcon } from 'lucide-react';
 
 export const SignupPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(signupSchema),
   });
 
   function onSubmit(data: z.infer<typeof signupSchema>) {
+    setIsLoading(true);
+    setErrorMsg(null);
     const { email, password } = data;
-    createUserWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
         const user = userCredential.user;
         localStorage.setItem('user', JSON.stringify(user));
+        setIsLoading(false);
         navigate({ to: '/' });
-      }
-    );
+      })
+      .catch((error) => {
+        const { message } = error as { message: string; code: string };
+        console.log(error.message);
+        setErrorMsg(message);
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -48,9 +61,15 @@ export const SignupPage = () => {
             />
           );
         })}
+        {errorMsg ? (
+          <Alert variant="destructive">
+            <AlertCircleIcon />
+            <AlertTitle>{errorMsg}</AlertTitle>
+          </Alert>
+        ) : null}
 
-        <Button type="submit" className="w-full py-6">
-          Sign Up
+        <Button type="submit" className="w-full py-6" disabled={isLoading}>
+          {isLoading ? 'SignUp....' : 'Sign Up'}
         </Button>
       </motion.form>
     </Form>
