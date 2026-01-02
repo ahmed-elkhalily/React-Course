@@ -2,11 +2,6 @@ import { z } from 'zod';
 import type { Name } from '../types';
 
 export const signupSchema = z.object({
-  fullName: z
-    .string({
-      required_error: 'Full Name Field is required',
-    })
-    .min(3, 'Full Name must be at minimum 3 characters'),
   email: z
     .string({
       required_error: 'Email Field is required',
@@ -28,11 +23,6 @@ export const signupFields: {
   placeholder: string;
   type?: 'password' | 'text';
 }[] = [
-  {
-    name: 'fullName',
-    label: 'Full Name',
-    placeholder: 'Please, Enter Full Name',
-  },
   {
     name: 'email',
     label: 'Email',

@@ -6,13 +6,29 @@ import { signinFields, signinSchema } from '../schemas/signin.schema';
 import { AuthField } from '../components/auth-field';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { auth } from '@/configs/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 
 export const SigninPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(signinSchema),
   });
   function onSubmit(data: z.infer<typeof signinSchema>) {
-    console.log(data);
+    setIsLoading(true);
+    const { email, password } = data;
+    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      const { user } = userCredential;
+      // save user data in local storage
+      localStorage.setItem('user', JSON.stringify(user));
+      // loading while signin
+      setIsLoading(false);
+      // navigate to home page
+      navigate({ to: '/' });
+    });
   }
   return (
     <Form {...form}>
@@ -26,7 +42,9 @@ export const SigninPage = () => {
         {signinFields.map((field) => {
           return <AuthField {...field} control={form.control} />;
         })}
-        <Button className="w-full">Sign In</Button>
+        <Button className="w-full" disabled={isLoading}>
+          Sign In
+        </Button>
       </motion.form>
     </Form>
   );

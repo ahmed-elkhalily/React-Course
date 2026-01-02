@@ -1,11 +1,10 @@
 import { Categories } from '@/components/custom/categories';
 import { Button } from '@/components/ui/button';
 import { BRANDS, CATEGORIES } from '@/const/categories';
-
-// signup
+import { FeaturedProducts } from './featured-products';
 export const Home = () => {
   return (
-    <div className="w-full">
+    <div className="w-full space-y-12 pb-12">
       <Categories
         title={
           <div className="mb-4 text-2xl font-extrabold text-zinc-800">
@@ -27,6 +26,7 @@ export const Home = () => {
         categories={CATEGORIES}
         circle={true}
       />
+      <FeaturedProducts />
     </div>
   );
 };

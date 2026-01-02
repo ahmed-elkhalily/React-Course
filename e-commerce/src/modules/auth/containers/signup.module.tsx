@@ -6,15 +6,27 @@ import { Button } from '@/components/ui/button';
 import { signupFields, signupSchema } from '../schemas/signup.schema';
 import { AuthField } from '../components/auth-field';
 import { motion } from 'framer-motion';
+import { auth } from '@/configs/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from '@tanstack/react-router';
 
 export const SignupPage = () => {
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(signupSchema),
-    mode: 'onBlur',
   });
+
   function onSubmit(data: z.infer<typeof signupSchema>) {
-    console.log(data);
+    const { email, password } = data;
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate({ to: '/' });
+      }
+    );
   }
+
   return (
     <Form {...form}>
       <motion.form

@@ -6,7 +6,7 @@ export const Categories = ({
   circle = false,
 }: {
   title: React.ReactNode;
-  categories: Array<{ src: string; alt: string; title: string }>;
+  categories: Array<{ src: string; alt: string; title?: string }>;
   circle?: boolean;
 }) => {
   return (
