@@ -2,8 +2,21 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Product } from '@/types/product.type';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '@/store/cart-slice';
 
 export const ProductCard = ({ product }: { product: Product }) => {
+  const dispatch = useDispatch();
+
+  function addProductToCart() {
+    const item = {
+      name: product.title,
+      quantity: 1,
+      id: product.id,
+    };
+    dispatch(addItemToCart(item));
+  }
+
   return (
     <motion.div
       className="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:shadow-lg"
@@ -37,6 +50,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           <Button
             size="icon"
             className="rounded-full shadow-md transition-transform hover:scale-105 active:scale-95"
+            onClick={addProductToCart}
           >
             <ShoppingCart className="h-5 w-5" />
           </Button>
