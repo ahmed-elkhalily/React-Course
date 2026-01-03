@@ -9,12 +9,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useDispatch();
 
   function addProductToCart() {
-    const item = {
-      name: product.title,
-      quantity: 1,
-      id: product.id,
-    };
-    dispatch(addItemToCart(item));
+    dispatch(addItemToCart(product));
   }
 
   return (

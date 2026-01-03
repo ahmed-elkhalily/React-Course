@@ -1,4 +1,4 @@
-import { ShoppingBasket, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import { Container } from './container';
 import { Link, useLocation } from '@tanstack/react-router';
 import { useNavigate } from '@tanstack/react-router';
@@ -6,11 +6,9 @@ import { auth } from '@/configs/firebase';
 import { signOut } from 'firebase/auth';
 import { Button } from '../ui/button';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@/store';
+import { CartMenu } from './cart-menu';
 
 export const Navbar = () => {
-  const { quantity } = useSelector((state: RootState) => state.cart);
   const [isLoading, setIsLoading] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -38,14 +36,8 @@ export const Navbar = () => {
           <img src="/logo.png" />
         </Link>
         <ul className="flex gap-x-6">
-          <li className="flex items-center text-lg font-semibold text-zinc-500">
-            <ShoppingBasket className="me-1" />
-            Cart
-            {quantity > 0 && (
-              <sup className="bg-primary ml-1 flex h-5 w-5 items-center justify-center rounded-full text-xs text-white">
-                {quantity}
-              </sup>
-            )}
+          <li>
+            <CartMenu />
           </li>
           {user ? (
             <li>
